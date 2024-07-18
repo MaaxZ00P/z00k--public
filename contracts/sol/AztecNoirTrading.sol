@@ -1,24 +1,28 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "./ConfidentialSettlement.sol";
 import "./NBBODataAggregator.sol";
 
 contract AztecNoirTrading {
     NBBODataAggregator public nbboDataAggregator;
+    ConfidentialSettlement public confidentialSettlement;
 
     event TradeExecuted(address indexed user, uint256 amount, uint256 price, bool isBuy);
 
-    constructor(address _nbboDataAggregator) {
+    constructor(address _nbboDataAggregator, address _confidentialSettlement) {
         nbboDataAggregator = NBBODataAggregator(_nbboDataAggregator);
+        confidentialSettlement = ConfidentialSettlement(_confidentialSettlement);
     }
 
     function executeTrade(uint256 amount, bool isBuy) external {
         (uint256 bestBid, uint256 bestOffer, uint256 timestamp) = nbboDataAggregator.getNBBO();
         uint256 price = isBuy ? bestOffer : bestBid;
 
-        // Here we would include privacy-preserving logic to handle the trade details
-        // This could involve zk-SNARKs or Aztec's confidential transactions
+        // NOIR Logic
 
+        confidentialSettlement.settleTrade(msg.sender, amount, price, isBuy);
         emit TradeExecuted(msg.sender, amount, price, isBuy);
+        
     }
 }
