@@ -23,3 +23,17 @@ z00k is a decentralized Web3-based zero-knowledge (zk) dark pool designed for se
 - **Frontend**: React.js.
 - **Backend**: Node.js.
 - **Database**: IPFS or decentralized storage.
+
+
+## Files and Structure
+
+### Contracts
+- `PrivateTrade.sol`: Smart contract for executing private trades.
+- `ConfidentialSettlement.sol`: Smart contract for settling trades confidentially.
+- `SecureOrderMatching.sol` (optional): Smart contract for secure order matching.
+
+### Scripts
+- `setupAztec.js`: Script to set up the Aztec SDK.
+- `createConfidentialTransaction.js`: Script to create confidential transaction proofs.
+- `executeTrade.js`: Script to execute a private trade.
+- `settleTrade.js` (optional): Script to settle a private trade.
